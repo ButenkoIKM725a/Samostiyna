@@ -1,0 +1,44 @@
+#include <iostream>
+#include <string>
+#include <Windows.h>
+
+using namespace std;
+class Book {
+private:
+    string title; 
+    string author; 
+    string genre;  
+    int year;      
+public:
+    Book(string t, string a, string g, int y) {
+        title = t;
+        author = a;
+        genre = g;
+        year = y;
+    }
+    void setTitle(string t) { title = t; }
+    void setAuthor(string a) { author = a; }
+    void setGenre(string g) { genre = g; }
+    void setYear(int y) {
+        if (y > 0 && y <= 2026) year = y;
+    }
+    string getTitle() { return title; }
+    string getAuthor() { return author; }
+    string getGenre() { return genre; }
+    int getYear() { return year; }
+    void displayInfo() {
+        cout << "--- Informatia pro knigu ---" << endl;
+        cout << "Nazva: \"" << title << "\"" << endl;
+        cout << "Avtor: " << author << endl;
+        cout << "Ganr: " << genre << endl;
+        cout << "Rik vidannya: " << year << endl;
+    }
+};
+int main() {
+    Book myBook("Kobzar", "Taras Shevchenko", "Poezia", 1840);
+    myBook.displayInfo();
+    cout << "\nOnovluemo rik vidannya..." << endl;
+    myBook.setYear(1860);
+    cout << "Noviy rik vidannya: " << myBook.getYear() << endl;
+    return 0;
+}

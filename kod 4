@@ -1,0 +1,57 @@
+#include <iostream>
+#include <vector>
+#include <Windows.h>
+
+using namespace std;
+class Vector {
+private:
+    vector<double> elements;
+public:
+    Vector(vector<double> el) : elements(el) {}
+    Vector add(const Vector& other) {
+        vector<double> result;
+        for (size_t i = 0; i < elements.size(); ++i) {
+            result.push_back(this->elements[i] + other.elements[i]);
+        }
+        return Vector(result);
+    }
+    Vector subtract(const Vector& other) {
+        vector<double> result;
+        for (size_t i = 0; i < elements.size(); ++i) {
+            result.push_back(this->elements[i] - other.elements[i]);
+        }
+        return Vector(result);
+    }
+    Vector multiply(double scalar) {
+        vector<double> result;
+        for (double el : elements) {
+            result.push_back(el * scalar);
+        }
+        return Vector(result);
+    }
+    double scalarProduct(const Vector& other) {
+        double product = 0;
+        for (size_t i = 0; i < elements.size(); ++i) {
+            product += this->elements[i] * other.elements[i];
+        }
+        return product;
+    }
+    void display() {
+        cout << "( ";
+        for (double el : elements) {
+            cout << el << " ";
+        }
+        cout << ")" << endl;
+    }
+};
+int main() {
+    Vector v1({ 1.0, 2.0, 3.0 });
+    Vector v2({ 4.0, 5.0, 6.0 });
+    cout << "Vektor 1: "; v1.display();
+    cout << "Vektor 2: "; v2.display();
+    Vector vSum = v1.add(v2);
+    cout << "Suma: "; vSum.display();
+    double dot = v1.scalarProduct(v2);
+    cout << "Skalyarni dobutok: " << dot << endl;
+    return 0;
+}

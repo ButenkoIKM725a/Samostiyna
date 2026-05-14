@@ -1,57 +1,60 @@
 #include <iostream>
-#include <vector>
 #include <Windows.h>
 
 using namespace std;
 class Vector {
 private:
-    vector<double> elements;
+    double* elements; 
+    int size;         
 public:
-    Vector(vector<double> el) : elements(el) {}
-    Vector add(const Vector& other) {
-        vector<double> result;
-        for (size_t i = 0; i < elements.size(); ++i) {
-            result.push_back(this->elements[i] + other.elements[i]);
-        }
-        return Vector(result);
+    Vector(int s) {
+        size = s;
+        elements = new double[size];
     }
-    Vector subtract(const Vector& other) {
-        vector<double> result;
-        for (size_t i = 0; i < elements.size(); ++i) {
-            result.push_back(this->elements[i] - other.elements[i]);
-        }
-        return Vector(result);
+    ~Vector() {
+        delete[] elements;
     }
-    Vector multiply(double scalar) {
-        vector<double> result;
-        for (double el : elements) {
-            result.push_back(el * scalar);
+    void setElement(int index, double value) {
+        if (index >= 0 && index < size) {
+            elements[index] = value;
         }
-        return Vector(result);
+    }
+    void add(const Vector& other) {
+        for (int i = 0; i < size; i++) {
+            this->elements[i] += other.elements[i];
+        }
+    }
+    void subtract(const Vector& other) {
+        for (int i = 0; i < size; i++) {
+            this->elements[i] -= other.elements[i];
+        }
     }
     double scalarProduct(const Vector& other) {
-        double product = 0;
-        for (size_t i = 0; i < elements.size(); ++i) {
-            product += this->elements[i] * other.elements[i];
+        double result = 0;
+        for (int i = 0; i < size; i++) {
+            result += this->elements[i] * other.elements[i];
         }
-        return product;
+        return result;
     }
     void display() {
         cout << "( ";
-        for (double el : elements) {
-            cout << el << " ";
+        for (int i = 0; i < size; i++) {
+            cout << elements[i] << " ";
         }
         cout << ")" << endl;
     }
 };
 int main() {
-    Vector v1({ 1.0, 2.0, 3.0 });
-    Vector v2({ 4.0, 5.0, 6.0 });
-    cout << "Vektor 1: "; v1.display();
-    cout << "Vektor 2: "; v2.display();
-    Vector vSum = v1.add(v2);
-    cout << "Suma: "; vSum.display();
+    int n = 3;
+    Vector v1(n);
+    Vector v2(n);
+    v1.setElement(0, 1.0); v1.setElement(1, 2.0); v1.setElement(2, 3.0);
+    v2.setElement(0, 4.0); v2.setElement(1, 5.0); v2.setElement(2, 6.0);
+    cout << "vektor 1: "; v1.display();
+    cout << "vektor 2: "; v2.display();
     double dot = v1.scalarProduct(v2);
-    cout << "Skalyarni dobutok: " << dot << endl;
+    cout << "Skalyarniy dobutok: " << dot << endl;
+    v1.add(v2);
+    cout << "Resultat dodavannya: "; v1.display();
     return 0;
 }

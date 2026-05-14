@@ -1,0 +1,43 @@
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+#include <Windows.h>
+
+using namespace std;
+class Triangle {
+private:
+    double sideA;
+    double sideB;
+    double sideC;
+public:
+    Triangle(double a, double b, double c) {
+        sideA = a;
+        sideB = b;
+        sideC = c;
+    }
+    double calculatePerimeter() {
+        return sideA + sideB + sideC;
+    }
+    double calculateArea() {
+        double p = calculatePerimeter() / 2.0;
+        return sqrt(p * (p - sideA) * (p - sideB) * (p - sideC));
+    }
+    bool isRightAngled() {
+
+        double sides[3] = { sideA, sideB, sideC };
+        sort(sides, sides + 3);
+        return abs(pow(sides[0], 2) + pow(sides[1], 2) - pow(sides[2], 2)) < 1e-9;
+    }
+};
+int main() {
+    Triangle myTriangle(3.0, 4.0, 5.0);
+    cout << "Perimetr: " << myTriangle.calculatePerimeter() << endl;
+    cout << "Plosha: " << myTriangle.calculateArea() << endl;
+    if (myTriangle.isRightAngled()) {
+        cout << "Trikutnik pramokutni." << endl;
+    }
+    else {
+        cout << "Trikutnik ne pramokutni." << endl;
+    }
+    return 0;
+}

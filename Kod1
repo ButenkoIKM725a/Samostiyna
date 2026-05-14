@@ -1,0 +1,30 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+class Student {
+private:
+    string name;
+    int age;
+    double avgScore;  
+public:
+    Student(string n, int a, double s) {
+        name = n;
+        age = a;
+        avgScore = s;
+    }
+    void setName(string n) { name = n; }
+    void setAge(int a) { age = a; }
+    void setAvgScore(double s) { avgScore = s; }
+    string getName() { return name; }
+    int getAge() { return age; }
+    double getAvgScore() { return avgScore; }
+    void display() {
+        cout << "Student: " << name << ", Age: " << age << ", Score: " << avgScore << endl;
+    }
+};
+int main() {
+    Student s1("Ivan", 19, 4.5);
+    s1.display();
+    return 0;
+}
